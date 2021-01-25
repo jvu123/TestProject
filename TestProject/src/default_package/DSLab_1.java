@@ -28,14 +28,19 @@ public class DSLab_1 {
 		
 		System.out.println();
 		
-		//fibonacci through recursive method
-		/*
+		//Comment on fibonacci
+		
+		/* (Same answer will be in the C++ source code too)
 		 * I think that the recursive method is much more efficient because
 		 * if there is ever a need to call it again or use the function again,
 		 * you can simply type fibo(n) to call it again as opposed to the iterative method
 		 * which you would need to modify it and type it all again. Although it is simple to modify and redo,
 		 * it takes time, making it tedious when you already know how to do it.
 		 */
+		
+		
+		
+		//fibonacci through recursive method
 		for(int i=0; i<11;i++) {
 			System.out.print("\nfib("+i+") is "+fibo(i));
 		}
