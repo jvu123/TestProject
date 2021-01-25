@@ -1,47 +1,69 @@
 package default_package;
 
+import java.util.Scanner;
+
 public class DSLab_1 {
 	public static void main(String[] args){
 		
 		//Problem 1
 		
-		int year=2000, year2=1900, year3=2001, year4=2004;
+		int year=2000, year2=1900, year3=2001, year4=2004, userYear;
 		
-		System.out.println(isLeapYear(year));
-		System.out.println(isLeapYear(year2));
-		System.out.println(isLeapYear(year3));
-		System.out.println(isLeapYear(year4)+"\n");
+		System.out.println(year+": "+isLeapYear(year));
+		System.out.println(year2+": "+isLeapYear(year2));
+		System.out.println(year3+": "+isLeapYear(year3));
+		System.out.println(year4+": "+isLeapYear(year4));
+		
+		System.out.println("Enter a year: ");
+		
+		Scanner scan=new Scanner(System.in);
+		
+		userYear=scan.nextInt();
+		
+		System.out.println("User Year: "+userYear+": "+isLeapYear(userYear)+"\n");
 		
 		//Problem 2
 		
 		// fibonacci through iterative method
-		int n=0, n2=1, n3, count=11;
+		int n=0, n2=1, n3, count;
 		
-		System.out.print("fib(0) is "+n+"\nfib(1) is "+n2);
+		System.out.print("Enter an input: ");
 		
-		for(int i=2; i<count;i++){
-			n3=n2+n;
-			System.out.print("\nfib("+i+") is "+n3);
-			n=n2;
-			n2=n3;
+		count=scan.nextInt();
+		
+		if(count>=0)
+			System.out.print("\nfib(0) is "+n);
+		
+		if(count>=1)
+			System.out.print("\nfib(1) is "+n2);
+		
+		if (count>=2) {
+			for(int i=2; i<count+1;i++){
+				n3=n2+n;
+				System.out.print("\nfib("+i+") is "+n3);
+				n=n2;
+				n2=n3;
+			}
 		}
 		
 		System.out.println();
 		
 		//Comment on fibonacci
 		
-		/* (Same answer will be in the C++ source code too)
-		 * I think that the recursive method is much more efficient because
-		 * if there is ever a need to call it again or use the function again,
-		 * you can simply type fibo(n) to call it again as opposed to the iterative method
-		 * which you would need to modify it and type it all again. Although it is simple to modify and redo,
-		 * it takes time, making it tedious when you already know how to do it.
-		 */
+				/* (Same answer will be in the C++ source code too)
+				 * The iterative method is more efficient than the recursive method because it requires less stack space which means less memory used.
+				 */
 		
 		
 		
 		//fibonacci through recursive method
-		for(int i=0; i<11;i++) {
+		int count2;
+		
+		System.out.print("\nEnter an input: ");
+		
+		count2=scan.nextInt();
+		
+		for(int i=0; i<count2+1;i++) {
 			System.out.print("\nfib("+i+") is "+fibo(i));
 		}
 		
