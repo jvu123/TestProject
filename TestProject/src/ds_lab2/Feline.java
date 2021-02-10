@@ -2,9 +2,6 @@ package ds_lab2;
 
 public class Feline implements Mammal{
 	
-	@SuppressWarnings("unused")
-	private String name;
-	
 	@Override
 	public void speak() {
 		System.out.println("Roar!");
@@ -13,12 +10,10 @@ public class Feline implements Mammal{
 
 	@Override
 	public void eat(Mammal x) {
-		if(x instanceof Feline)
-			System.out.println(this + " cannot eat "+ x);
-		else if (x instanceof Canine)
-			System.out.println(this + " cannot eat "+ x);
+		if(x instanceof Bovine)
+			System.out.println(this + " can eat "+ x);
 		else
-			System.out.println(this+" can eat "+x);
+			System.out.println(this+" cannot eat "+x);
 		
 	}
 
