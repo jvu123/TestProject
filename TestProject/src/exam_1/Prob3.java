@@ -13,6 +13,7 @@ public class Prob3 {
 		
 		System.out.println();
 		
+		//notSum method used
 		System.out.println(notSum(3,A));
 		System.out.println(notSum(9,A)+"\n");
 		System.out.println(notSum(5,B)); 

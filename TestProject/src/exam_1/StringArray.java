@@ -44,6 +44,9 @@ public class StringArray <T>{
 	//runtime is 2 --- O(1)
 		@SuppressWarnings("unchecked")
 		T get(int i) {
+			if(i>=this.size || i<0) {
+				return null;
+			}
 			final T t=(T)string[i];
 			return t;
 		}
@@ -51,7 +54,11 @@ public class StringArray <T>{
 	//inserts element at given index
 	//runtime is 1 == O(1)
 	void insertAt(int i, Object string2){
-		string[i]=string2;
+		if(i<this.size || i>=0) {
+			string[i]=string2;
+		} else {
+			System.out.println("Out of bounds");
+		}
 	}
 	
 	//prints the array of characters to display words
@@ -84,25 +91,6 @@ public class StringArray <T>{
 		}
 	}
 	
-	//makes a new array of both sizes combined and inserts the elements in order,
-	//making one string append to the other.
-	//runtime is 4n+3 --- O(n)
-	static Object[] strcat(StringArray<Character> str, StringArray<Character> str2) {
-		Object[] a=new Object[(str.size)+(str2.size)];
-		int count=0;
-		for(int i=0; i<a.length;i++) {
-			if(i<str.size) {
-				a[i]=str.get(i);
-				count++;
-			} else {
-				a[i]=str2.get((i)-count);
-			}
-		}
-		return a;//1
-		
-		
-	}
-	
 	//copies a string into another,
 	//only works if same size
 	//runtime 2n+2 --- O(n)
@@ -118,7 +106,6 @@ public class StringArray <T>{
 			System.out.println("Out of bounds");
 		}
 	}
-	
 	
 	//compares two arrays of characters lexographically.
 	//if the character from one comes before the character from the other, a value returns lower than 0
@@ -143,6 +130,25 @@ public class StringArray <T>{
 	    	}
 	    	return z; //returns 0,
 	    	
+	}
+	
+	//makes a new array of both sizes combined and inserts the elements in order,
+	//making one string append to the other.
+	//runtime is 4n+3 --- O(n)
+	static Object[] strcat(StringArray<Character> str, StringArray<Character> str2) {
+		Object[] a=new Object[(str.size)+(str2.size)];
+		int count=0;
+		for(int i=0; i<a.length;i++) {
+			if(i<str.size) {
+				a[i]=str.get(i);
+				count++;
+			} else {
+				a[i]=str2.get((i)-count);
+			}
+		}
+		return a;//1
+			
+			
 	}
 	
 

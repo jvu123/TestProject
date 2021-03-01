@@ -3,40 +3,37 @@ package exam_1;
 import java.lang.Math;
 
 public class Array <T>{
-	private final Object[] obj_data; //object array, runtime is 1 --- O(1)
+	private final Object[] obj; //object array, runtime is 1 --- O(1)
 	public final int size;//runtime is 1 --- O(1)
 	
 	//class constructor
 	//runtime is n+2 --- O(n)
 	Array(int size){
 		//instantiate a new Object array of specified size
-		obj_data=new Object [size];
+		obj=new Object [size];
 		this.size = size;
 		
 	}
 	
-	//gets the element of given index
-	//runtime is 2 --- O(1)
-	@SuppressWarnings("unchecked")
-	T get(int i) {
-		final T t=(T)obj_data[i];
-		return t;
+	//class constructor that takes in an Array and clones it into a new array
+	//runtime is 2n+3 --- 0(n)
+	Array(Array<Character> arr){
+		this.obj=new Object[arr.size];
+		this.size=arr.size;
+		for(int i=0; i<size;i++) {
+			this.obj[i]=arr.get(i);
+		}
 	}
-	
-	//inserts element at given index
-	//runtime is 1 --- O(1)
-	void insertAt(int i, T t){
-		obj_data[i]=t;
+		
+		//class constructor that takes in an Object array and clones it into a new array
+		//runtime is 2n+2 --- 0(n)
+	Array(Object[] arr){
+		this.obj=new Object[arr.length];
+		this.size=arr.length;
+		for(int i=0; i<size;i++) {
+			obj[i]=arr[i];
+		}
 	}
-	
-	//prints the array
-	//runtime is n+1 --- O(n)
-	void print() {
-		  for(Object element : obj_data) {
-			  System.out.printf("%s ", element);
-		  }
-		  System.out.println();
-	  }
 	
 	//returns the size of array
 	//runtime is 1 --- O(1)
@@ -44,48 +41,15 @@ public class Array <T>{
 		return this.size;
 	}
 	
-	//returns true or false if the array is empty or not
-	//runtime is 2n --- O(n)
-	boolean isEmpty(){
-		 if(this.size==0) {
-			 return true;
-		 }
-		  
-	   for( int index =  0 ; index < this.size; index ++ ) {
-		   if(obj_data[index] != null) {
-			   return false;
-		   }
-	   }
-
-	   return true;
-	  }
-	
-	//returns true or false if the array and other array equal each other
-	//runtime is 2n+1 --- O(n)
-	public boolean isEqual(Object other){
-		
-	    if (other instanceof Array<?>){
-	    	if( ((Array<?>) other).sizeOf() != this.size) {
-				  return false;
-	    	}
-	    	for( int i =  0 ; i < this.size; i ++ ) {
-	    		if ( (((Array<?>) other).get(i))!=(obj_data[i]) ){
-		            return false;
-		        }
-	    	}
-	    }
-	    return true;
-	}
-	
-	//removes the element at the given index and replaces it with null
-	//runtime is 3 --- O(1)
-	void removeAt(int i) {
-		if( i < 0 || i>=this.size ){
-		     System.out.println("Index is outside of the range of the array");
-		      return;
-		    }
-		    
-		    this.obj_data[i] = null;
+	//gets the element of given index
+	//runtime is 2 --- O(1)
+	@SuppressWarnings("unchecked")
+	T get(int i) {
+		if(i >= this.size || i<0) {
+			return null;
+		}
+		final T t=(T)obj[i];
+		return t;
 	}
 	
 	//sorts the given array using insertion sort
@@ -131,15 +95,45 @@ public class Array <T>{
 	    return true;
 	}
 	
+	//inserts element at given index
+	//runtime is 1 --- O(1)
+	void insertAt(int i, T t){
+		if(i >= this.size || i<0) {
+			System.out.println("Cannot insert at this index");
+		}
+		
+		this.obj[i]=t;
+	}
+		
+	//prints the array
+	//runtime is n+1 --- O(n)
+	void print() {
+		for(Object element : obj) {
+			System.out.printf("%s ", element);
+		}
+		System.out.println();
+	}
+		
+	//removes the element at the given index and replaces it with null
+	//runtime is 3 --- O(1)
+	void removeAt(int i) {
+		if( i < 0 || i>=this.size ){
+			System.out.println("Index is outside of the range of the array");
+			return;
+		}
+			    
+		this.obj[i] = null;
+	}
+	
 	//Removes duplicate elements
 	//runtime is 3n^2 + n + 1 --- O(n^2)
 	void removeDup() {
 		  int counter=1;
 		  for(int i=0; i<this.size;i++) {
-			  if(this.obj_data[i]!=null) {
+			  if(this.obj[i]!=null) {
 				  for(int j=counter; j<this.size;j++) {
-					  if(this.obj_data[i]==this.obj_data[j]) {
-						  this.obj_data[j]=null;
+					  if(this.obj[i]==this.obj[j]) {
+						  this.obj[j]=null;
 					  }
 					  
 				  }
@@ -152,33 +146,18 @@ public class Array <T>{
 		  }
 	  }
 	
-	//slices the object where the given index is and places those elements in a sub array
-	//runtime is 3n+3 --- O(n)
-	Object[] slice(int i) {
-		int counter=i;
-		int size=(this.size)-i;
-		Object[] data=new Object[size];
-		for(int j=0; j<size;j++) {
-			data[j]=this.obj_data[counter];
-			counter++;
-		}
-		return data;
-		
-	}
-	
 	//shuffles the array using random integers
 	//runtime is 3n+3 --- O(n)
 	void shuffle() {
 		
 		int max=this.size;
-		int min=0;//1
-		int range=max-min-1;
+		int range=max-1;
 		
-		for(int i=0; i<this.size;i++) {
+		for(int i=0; i<max;i++) {
 			int randI=(int)(Math.random()*range)+1;
-			Object temp = obj_data[randI];
-			obj_data[randI]=obj_data[i];
-			obj_data[i]=temp;
+			Object temp = obj[randI];
+			obj[randI]=obj[i];
+			obj[i]=temp;
 		}
 		
 	}
@@ -188,11 +167,63 @@ public class Array <T>{
 	void filter() {
 		for(int i=0; i<this.size;i++) {
 			if(i%2==0) {
-				System.out.printf("%s ", obj_data[i]);
+				System.out.printf("%s ", obj[i]);
 			}
 				
 		}
 		System.out.println();
+	}
+	
+	//slices the object where the given index is and places those elements in a sub array
+	//runtime is 2n+2 --- O(n)
+	Object[] slice(int s, int i) {
+		if(s<0 || s>=this.size) {
+			System.out.println("First number given is out of bounds");
+			return null;
+		}
+		
+		if(i<s || i>=this.size) {
+			System.out.println("Second number given is out of bounds");
+			return null;
+		}
+		Object[] data=new Object[i-s+1];
+		for(int j=0; j<data.length;j++) {
+			data[j]=this.obj[s+j];
+		}
+		return data;
+			
+	}
+	
+	//returns true or false if the array is empty or not
+	//runtime is 2n --- O(n)
+	boolean isEmpty(){
+		if(this.size==0) {
+			return true;
+		}
+			  
+		for( int index =  0 ; index < this.size; index ++ ) {
+			if(obj[index] != null) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+		
+	//returns true or false if the array and other array equal each other
+	//runtime is 2n+1 --- O(n)
+	public boolean isEqual(Object other){
+		if (other instanceof Array<?>){
+			if( ((Array<?>) other).sizeOf() != this.size) {
+				return false;
+			}
+		    for( int i =  0 ; i < this.size; i ++ ) {
+		    	if ( (((Array<?>) other).get(i))!=(obj[i]) ){
+		    		return false;
+			    }
+		    }
+		}
+		return true;
 	}
 
 }

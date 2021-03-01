@@ -7,10 +7,10 @@ public class Prob4 {
 		int[] tempA=new int[B.length];
 		int k=30;
 		
+		//arrange method used
 		arrange(B,tempA,k,0,0,0);
 		
-		//
-		for(int j=0;j<B.length;j++) {
+		for(int j=0;j<B.length;j++) { //inserting the arranged values from the temp array into the original array
 			B[j]=tempA[j];
 		}
 		
